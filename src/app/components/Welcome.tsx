@@ -1,4 +1,4 @@
-export default function Hero() {
+export default function Welcome() {
   return (
     <section className="bg-blue-600 text-white py-20 flex items-center justify-center min-h-screen">
       <div className="container mx-auto text-center">
