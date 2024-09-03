@@ -1,9 +1,9 @@
-export interface LoginPayload {
+export type LoginPayload = {
     email: string;
     password: string;
 }
 
-export interface LoginResponse {
+export type LoginResponse = {
     accessToken: string;
     refreshToken: string;
 }

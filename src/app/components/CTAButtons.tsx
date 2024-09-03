@@ -1,7 +1,12 @@
-import Link from 'next/link';
+import Link from "next/link";
+import { useAuth } from "../hooks/AuthProvider";
 
 export default function CTAButtons() {
-  return (
+  const { isLoggedIn } = useAuth();
+
+  return isLoggedIn() ? (
+    <></>
+  ) : (
     <div className="text-center mt-6">
       <Link
         href="/driver-signup"
