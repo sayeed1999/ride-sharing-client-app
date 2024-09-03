@@ -1,3 +1,5 @@
+// TODO:- guards are crashing, not working
+
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../hooks/AuthProvider";
@@ -6,11 +8,11 @@ import { useAuth } from "../hooks/AuthProvider";
 export const withPublicGuard = (WrappedComponent: any) => {
   return (props: any) => {
     // @ts-expect-error
-    const { user } = useAuth();
+    const { isLoggedIn, user } = useAuth();
     const router = useRouter();
 
     useEffect(() => {
-      if (user) {
+      if (isLoggedIn()) {
         router.push("/");
       }
     }, [user, router]);

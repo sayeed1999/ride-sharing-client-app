@@ -6,11 +6,11 @@ import { useAuth } from "../hooks/AuthProvider";
 export const withCustomerGuard = (WrappedComponent: any) => {
   return (props: any) => {
     // @ts-expect-error
-    const { user } = useAuth();
+    const { isLoggedIn, user } = useAuth();
     const router = useRouter();
 
     useEffect(() => {
-      if (!user || user.role !== "customer") {
+      if (!isLoggedIn() || !user || user.role !== "customer") {
         router.push("/login");
       }
     }, [user, router]);
