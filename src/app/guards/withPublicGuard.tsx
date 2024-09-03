@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useAuth } from "../hooks/AuthProvider";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 
 interface Props {
   children: any;
@@ -13,10 +13,11 @@ export default function PublicGuard({ children }: Props): ReactNode {
   const { isLoggedIn } = useAuth();
   const router = useRouter();
 
-  if (isLoggedIn()) {
-    router.push("/");
-    return null;
-  }
+  useEffect(() => {
+    if (isLoggedIn()) {
+      router.push("/");
+    }
+  }, [router, isLoggedIn]);
 
-  return <>{children}</>;
+  return !isLoggedIn() ? <>{children}</> : null;
 }

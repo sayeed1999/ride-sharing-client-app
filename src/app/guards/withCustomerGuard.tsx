@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useAuth } from "../hooks/AuthProvider";
+import { useEffect } from "react";
 
 interface Props {
   children: any;
@@ -12,10 +13,11 @@ export const CustomerGuard = ({ children }: Props) => {
   const { isLoggedIn, hasRole } = useAuth();
   const router = useRouter();
 
-  if (!isLoggedIn() || !hasRole("customer")) {
-    router.push("/customer-login");
-    return null;
-  }
+  useEffect(() => {
+    if (!isLoggedIn() || !hasRole("customer")) {
+      router.push("/customer-login");
+    }
+  }, [router, isLoggedIn, hasRole]);
 
-  return <>{children}</>;
+  return isLoggedIn() && hasRole("customer") ? <>{children}</> : null;
 };
