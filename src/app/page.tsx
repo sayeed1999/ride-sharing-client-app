@@ -1,5 +1,13 @@
+"use client";
+
+import { useAuth } from "./hooks/AuthProvider";
+
 export default function HomePage() {
-  return (
+  const { isLoggedIn } = useAuth();
+
+  return isLoggedIn() ? (
+    <></>
+  ) : (
     <div className="container mx-auto py-16 text-center">
       <h3 className="text-2xl font-bold">How It Works</h3>
       <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-8">

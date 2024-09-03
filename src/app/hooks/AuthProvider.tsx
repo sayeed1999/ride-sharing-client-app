@@ -5,12 +5,14 @@ import { getUserInfoFromToken, validateToken } from "../utils/jwt";
 
 interface AuthContextType {
   isLoggedIn: () => boolean;
+  hasRole: (role: string) => boolean;
   user: any;
   login: (payload: LoginPayload) => void;
   logout: any;
 }
 
-const AuthContext = createContext<AuthContextType | null>(null);
+// @ts-expect-error
+const AuthContext = createContext<AuthContextType>(null);
 
 const AuthProvider = ({ children }: { children: any }) => {
   const [accessToken, setAccessToken] = useState(
@@ -28,6 +30,10 @@ const AuthProvider = ({ children }: { children: any }) => {
     if (!accessToken) return false;
 
     return validateToken(accessToken);
+  };
+
+  const hasRole = (role: string): boolean => {
+    return user && user?.role === role;
   };
 
   const login = async (data: LoginPayload) => {
@@ -52,7 +58,7 @@ const AuthProvider = ({ children }: { children: any }) => {
         localStorage.setItem("userInfo", JSON.stringify(user));
       })
       .catch((err) => {
-        alert("failed to login with error" + err.message);
+        alert("Please check server connection.");
       });
   };
 
@@ -66,7 +72,7 @@ const AuthProvider = ({ children }: { children: any }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, user, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, hasRole, user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -14,6 +14,7 @@ const login = async (data: LoginPayload) => {
     return res;
   } catch (err) {
     console.error(err);
+    throw err;
   }
 };
 

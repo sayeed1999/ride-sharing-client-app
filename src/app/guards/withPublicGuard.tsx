@@ -1,22 +1,22 @@
-// TODO:- guards are crashing, not working
+"use client";
 
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../hooks/AuthProvider";
+import React, { ReactNode } from "react";
+
+interface Props {
+  children: any;
+}
 
 // Public Guard - Accessible by all users, redirects authenticated users
-export const withPublicGuard = (WrappedComponent: any) => {
-  return (props: any) => {
-    // @ts-expect-error
-    const { isLoggedIn, user } = useAuth();
-    const router = useRouter();
+export default function PublicGuard({ children }: Props): ReactNode {
+  const { isLoggedIn } = useAuth();
+  const router = useRouter();
 
-    useEffect(() => {
-      if (isLoggedIn()) {
-        router.push("/");
-      }
-    }, [user, router]);
+  if (isLoggedIn()) {
+    router.push("/");
+    return null;
+  }
 
-    return <WrappedComponent {...props} />;
-  };
-};
+  return <>{children}</>;
+}

@@ -1,20 +1,21 @@
-import { useEffect } from "react";
+"use client";
+
 import { useRouter } from "next/navigation";
 import { useAuth } from "../hooks/AuthProvider";
 
+interface Props {
+  children: any;
+}
+
 // Customer Guard - Accessible only by authenticated customers
-export const withCustomerGuard = (WrappedComponent: any) => {
-  return (props: any) => {
-    // @ts-expect-error
-    const { isLoggedIn, user } = useAuth();
-    const router = useRouter();
+export const CustomerGuard = ({ children }: Props) => {
+  const { isLoggedIn, hasRole } = useAuth();
+  const router = useRouter();
 
-    useEffect(() => {
-      if (!isLoggedIn() || !user || user.role !== "customer") {
-        router.push("/login");
-      }
-    }, [user, router]);
+  if (!isLoggedIn() || !hasRole("customer")) {
+    router.push("/customer-login");
+    return null;
+  }
 
-    return user?.role === "customer" ? <WrappedComponent {...props} /> : null;
-  };
+  return <>{children}</>;
 };
