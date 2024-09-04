@@ -1,4 +1,4 @@
-import { CustomerGuard } from "../guards/withCustomerGuard";
+import { CustomerGuard } from "../guards/CustomerGuard";
 
 const RideRequestPage = () => {
   return (

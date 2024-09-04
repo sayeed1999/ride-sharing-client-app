@@ -2,7 +2,7 @@
 
 import { useAuth } from "../hooks/AuthProvider";
 import { LoginPayload } from "../models/login";
-import PublicGuard from "../guards/withPublicGuard";
+import PublicGuard from "../guards/PublicGuard";
 import Form from "../components/Form";
 
 const LoginPage = () => {

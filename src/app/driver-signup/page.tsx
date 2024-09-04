@@ -1,4 +1,4 @@
-import PublicGuard from "../guards/withPublicGuard";
+import PublicGuard from "../guards/PublicGuard";
 
 const DriverSignupPage = () => {
   return (
