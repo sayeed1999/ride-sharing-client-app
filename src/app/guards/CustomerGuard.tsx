@@ -8,7 +8,7 @@ interface Props {
   children: any;
 }
 
-// Customer Guard - Accessible only by authenticated customers
+// Customer Guard - Accessible only by authenticated customers!
 export const CustomerGuard = ({ children }: Props) => {
   const { isLoggedIn, hasRole } = useAuth();
   const router = useRouter();

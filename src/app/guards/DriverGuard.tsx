@@ -8,7 +8,7 @@ interface Props {
   children: any;
 }
 
-// Driver Guard - Accessible only by authenticated drivers
+// Driver Guard - Accessible only by authenticated drivers!
 export const DriverGuard = ({ children }: Props) => {
   const { isLoggedIn, hasRole } = useAuth();
   const router = useRouter();

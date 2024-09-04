@@ -8,7 +8,7 @@ interface Props {
   children: any;
 }
 
-// Public Guard - Accessible by only unauthenticated users
+// Public Guard - Accessible by only logged out users!
 export default function PublicGuard({ children }: Props): ReactNode {
   const { isLoggedIn } = useAuth();
   const router = useRouter();
